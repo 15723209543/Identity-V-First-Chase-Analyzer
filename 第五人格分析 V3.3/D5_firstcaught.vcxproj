@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{C4F0566B-7B62-42F9-9C9A-A99E1671694D}</ProjectGuid>
+    <RootNamespace>D5_firstcaught</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>EasyXa.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>EasyXa.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\data_repository.h" />
+    <ClInclude Include="include\easyx_ui.h" />
+    <ClInclude Include="include\first_chase_app.h" />
+    <ClInclude Include="include\first_chase_analyzer.h" />
+    <ClInclude Include="include\game_map.h" />
+    <ClInclude Include="include\hunter.h" />
+    <ClInclude Include="include\hunter_data.h" />
+    <ClInclude Include="include\map_data.h" />
+    <ClInclude Include="include\map_geometry_data.h" />
+    <ClInclude Include="include\model_params.h" />
+    <ClInclude Include="include\report_writer.h" />
+    <ClInclude Include="include\score_calculator.h" />
+    <ClInclude Include="include\survivor.h" />
+    <ClInclude Include="include\survivor_data.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\data_repository.cpp" />
+    <ClCompile Include="src\easyx_ui.cpp" />
+    <ClCompile Include="src\first_chase_app.cpp" />
+    <ClCompile Include="src\first_chase_analyzer.cpp" />
+    <ClCompile Include="src\game_map.cpp" />
+    <ClCompile Include="src\hunter.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\model_params.cpp" />
+    <ClCompile Include="src\report_writer.cpp" />
+    <ClCompile Include="src\score_calculator.cpp" />
+    <ClCompile Include="src\survivor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="config\model_params.txt" />
+    <None Include="data\identityv_scores.xlsx" />
+    <None Include="data\map\088A0EF1C3E93DB67DDF4BCFBF2B9452.jpg" />
+    <None Include="data\map\0C2DBB8832B12683A04CFA399F630268.jpg" />
+    <None Include="data\map\27F8C4A00A2B7D7D5136CB06367DEA92.jpg" />
+    <None Include="data\map\352ECF962A74C2B1709046B9B2062795.jpg" />
+    <None Include="data\map\48A8206C540DD491F364E78C5E6BD285.jpg" />
+    <None Include="data\map\4AAF0BC0C2522B0E9313ABE763EAED26.jpg" />
+    <None Include="data\map\53FDD64D9D62B7045A5A2D1DCC9C36BA.jpg" />
+    <None Include="data\map\6007118D32747325657A7319694256D1.jpg" />
+    <None Include="data\map\88D08FB9E3CFA9B9F0AA396B5EB12094.jpg" />
+    <None Include="tools\generate_excel.py" />
+    <None Include="tools\generate_map_geometry.py" />
+    <None Include="tools\image_recognition\generate_map_geometry.py" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
+
+
+

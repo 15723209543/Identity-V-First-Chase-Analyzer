@@ -1,0 +1,94 @@
+# D5_firstcaught 首追模型参数
+# 写法：参数名=数值
+# 井号后面的内容是注释，程序会自动忽略。
+# 修改后不需要重新编译，下一次分析会重新读取本文件。
+
+# =========================
+# 总公式权重
+# raw_score = raw_base
+#   + 角色指标分 * character_weight
+#   + 监管者风格分 * hunter_style_weight
+#   + (地图几何分 + 特殊地图分) * map_weight
+#   + 寻路距离分 * distance_weight
+#   + 克制分 * counter_weight
+# =========================
+raw_base=50
+character_weight=1.35
+hunter_style_weight=0.95
+map_weight=0.62
+distance_weight=0.78
+counter_weight=1.55
+
+# softmax_divisor 越小，最高目标概率越突出；越大，四名求生者概率越平均。
+softmax_divisor=16
+
+# =========================
+# 1-10 分折算百分制
+# 10 分会折算为 100 分，1 分会折算为 60 分。
+# percent_middle 是模型判断“中等水平”的基准线。
+# =========================
+percent_min=60
+percent_max=100
+percent_middle=80
+
+# 求生者角色指标权重。
+# 破译和首抓价值越高越值得压；牵制越弱越值得抓。
+decode_weight=0.72
+target_weight=0.82
+weak_kite_weight=1.05
+assist_weight=0.28
+rescue_weight=0.14
+strong_rescue_penalty=7
+weak_kiter_bonus=8
+
+# 监管者风格权重。
+chase_vs_kite_weight=0.42
+hunter_extra_power_weight=0.34
+decoder_control_weight=0.26
+rescue_camp_weight=0.24
+assist_control_weight=0.18
+slow_chase_strong_kiter_penalty=10
+fast_chase_weak_kiter_bonus=8
+
+# 寻路距离分。数值越小，距离惩罚越大。
+distance_divisor=9
+
+# =========================
+# 板窗资源
+# 每多一扇窗/一块板都会增加牵制资源分。
+# 这个资源分会降低当前位置的首追收益。
+# =========================
+window_base=1.35
+window_near_bonus=0.55
+pallet_base=1.00
+pallet_near_bonus=0.45
+resource_cap=8
+
+# =========================
+# 特殊地图资源
+# 默认是负数，表示这些资源通常帮助求生者转点。
+# 如果监管者带 fast_chase / teleport / anti_mobility，会抵消一部分负分。
+# =========================
+coaster_score=-8
+tram_score=-7
+rope_score=-7
+slide_score=-4
+boat_score=-5
+subway_score=-5
+special_resource_counter_bonus=4
+
+# =========================
+# 通用克制权重
+# 正数表示监管者更想追，负数表示硬追风险更高。
+# =========================
+counter_tag_anti_mobility=16
+counter_tag_anti_item=17
+counter_tag_anti_heal=18
+counter_tag_anti_decoder=17
+counter_tag_area_control_decoder=10
+counter_tag_long_range_stunner=8
+counter_tag_teleport_stealth=8
+counter_tag_anti_loop_kiter=11
+counter_portal_without_answer=-13
+counter_strong_kiter_slow_hunter=-12
+counter_rescue_vs_camp=8
