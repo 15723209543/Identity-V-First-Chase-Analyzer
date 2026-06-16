@@ -1,0 +1,134 @@
+# D5_firstcaught 首追模型参数
+# 写法：参数名=数值
+# 井号后面的内容是注释，程序会自动忽略。
+# 修改后不需要重新编译，下一次分析会重新读取本文件。
+
+# =========================
+# 权重参考
+# 当前默认值按“克制 > 角色强度 > 地图距离 > 地图追击难度 > 队友配合”排序。
+# 参考近年 IVL 职业赛常见首追思路：
+# 1. 有明显硬克制时优先抓；
+# 2. 优先压破译位、弱牵制位和高首抓价值位；
+# 3. 开局距离过远时降低追击意愿；
+# 4. 强板窗、特殊转点资源会降低追击收益；
+# 5. 队友互保只作为最后修正，不能盖过硬克制。
+# 当前版本最终不再直接用综合分判断首追，
+# 而是先估算“到达时间、首刀时间、倒地时间”，
+# 再用倒地时间越短、首追概率越高的方式计算。
+# 下面这些权重保留给兼容旧输出和后续调参参考。
+# =========================
+raw_base=50
+character_weight=1.45
+hunter_style_weight=1.08
+distance_weight=0.90
+map_weight=0.58
+teammate_weight=0.34
+counter_weight=1.95
+
+# softmax_divisor 越小，最高目标概率越突出；越大，四名求生者概率越平均。
+softmax_divisor=14
+
+# =========================
+# 追击时间模型
+# 当前版本最终以“预估倒地时间”作为最大参考。
+# 监管者移动速度参考公开角色数据，常见基础速度约 4.56-4.73m/s，
+# 默认取 4.64m/s 作为通用估算值。
+# 首刀/倒地时间没有官方固定表，这里按职业赛常见无失误牵制节奏估算，
+# 并由克制、角色强度、地图距离、地图难度、队友配合共同修正。
+# =========================
+hunter_move_speed_mps=4.64
+base_first_hit_seconds=24
+base_second_hit_seconds=31
+hit_recovery_seconds=3
+character_time_weight=0.38
+hunter_time_weight=0.34
+map_time_weight=0.42
+counter_time_weight=0.55
+teammate_time_weight=0.30
+resource_time_weight=1.20
+min_first_hit_seconds=8
+min_down_seconds=18
+
+# =========================
+# 1-10 分折算百分制
+# 10 分会折算为 100 分，1 分会折算为 60 分。
+# percent_middle 是模型判断“中等水平”的基准线。
+# =========================
+percent_min=60
+percent_max=100
+percent_middle=80
+
+# 求生者角色指标权重。
+# 破译和首抓价值越高越值得压；牵制越弱越值得抓。
+decode_weight=0.88
+target_weight=0.95
+weak_kite_weight=1.18
+assist_weight=0.22
+rescue_weight=0.10
+strong_rescue_penalty=9
+weak_kiter_bonus=10
+
+# 监管者风格权重。
+chase_vs_kite_weight=0.48
+hunter_extra_power_weight=0.36
+decoder_control_weight=0.30
+rescue_camp_weight=0.25
+assist_control_weight=0.20
+slow_chase_strong_kiter_penalty=12
+fast_chase_weak_kiter_bonus=10
+
+# 寻路距离分。数值越小，距离惩罚越大。
+distance_divisor=9
+
+# =========================
+# 板窗资源
+# 每多一扇窗/一块板都会增加牵制资源分。
+# 这个资源分会降低当前位置的首追收益。
+# =========================
+window_base=1.35
+window_near_bonus=0.55
+pallet_base=1.00
+pallet_near_bonus=0.45
+resource_cap=8
+
+# =========================
+# 特殊地图资源
+# 默认是负数，表示这些资源通常帮助求生者转点。
+# 如果监管者带 fast_chase / teleport / anti_mobility，会抵消一部分负分。
+# =========================
+coaster_score=-8
+tram_score=-7
+rope_score=-7
+slide_score=-4
+boat_score=-5
+subway_score=-5
+special_resource_counter_bonus=4
+
+# =========================
+# 队友互助
+# 判断四名求生者之间的寻路距离，而不是直线距离。
+# 修机位靠近辅助/救援会降低首追收益；
+# 辅助/救援靠近修机位时，监管者可能先压辅助结构。
+# =========================
+teammate_near_m=28
+assist_protection_penalty=-7
+rescue_protection_penalty=-5
+decoder_isolated_bonus=6
+assist_near_decoder_bonus=4
+rescue_near_decoder_bonus=2.5
+
+# =========================
+# 通用克制权重
+# 正数表示监管者更想追，负数表示硬追风险更高。
+# =========================
+counter_tag_anti_mobility=20
+counter_tag_anti_item=20
+counter_tag_anti_heal=21
+counter_tag_anti_decoder=22
+counter_tag_area_control_decoder=13
+counter_tag_long_range_stunner=10
+counter_tag_teleport_stealth=10
+counter_tag_anti_loop_kiter=14
+counter_portal_without_answer=-16
+counter_strong_kiter_slow_hunter=-15
+counter_rescue_vs_camp=10
